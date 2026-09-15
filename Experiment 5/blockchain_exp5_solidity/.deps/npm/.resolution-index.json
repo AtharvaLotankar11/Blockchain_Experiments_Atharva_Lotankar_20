@@ -1,0 +1,210 @@
+{
+  "1. Introduction/introduction.sol": {
+    "__sources__": {
+      "1. Introduction/introduction.sol": {
+        "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.3;\n\ncontract Counter {\n    uint public count;\n\n    // Function to get the current count\n    function get() public view returns (uint) {\n        return count;\n    }\n\n    // Function to increment count by 1\n    function inc() public {\n        count += 1;\n    }\n\n    // Function to decrement count by 1\n    function dec() public {\n        count -= 1;\n    }\n}",
+        "file": "1. Introduction/introduction.sol"
+      }
+    }
+  },
+  "2. Basic Syntax/basicSyntax.sol": {
+    "__sources__": {
+      "2. Basic Syntax/basicSyntax.sol": {
+        "content": "// SPDX-License-Identifier: MIT\n// compiler version must be greater than or equal to 0.8.3 and less than 0.9.0\npragma solidity ^0.8.3;\n\ncontract MyContract\n{\n    string public name = \"Alice\";\n}",
+        "file": "2. Basic Syntax/basicSyntax.sol"
+      }
+    }
+  },
+  "3. Primitive Data Types/primitiveDataTypes.sol": {
+    "__sources__": {
+      "3. Primitive Data Types/primitiveDataTypes.sol": {
+        "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.3;\n\ncontract Primitives {\n    bool public boo = true;\n    uint8 public u8 = 1;\n    uint public u256 = 456;\n    uint public u = 123; // uint is an alias for uint256\n    int8 public i8 = -1;\n    int public i256 = 456;\n    int public i = -123; // int is same as int256\n\n    address public addr = 0xCA35b7d915458EF540aDe6068dFe2F44E8fa733c;\n\n    // Default values\n    // Unassigned variables have a default value\n    bool public defaultBoo; // false\n    uint public defaultUint; // 0\n    int public defaultInt; // 0\n    address public defaultAddr; // 0x0000000000000000000000000000000000000000\n\n    //New Values\n    address public newAddr = 0x0000000000000000000000000000000000000000;\n    int public neg = -20;\n    uint public newU = 0;\n}",
+        "file": "3. Primitive Data Types/primitiveDataTypes.sol"
+      }
+    }
+  },
+  "4. Variables/variables.sol": {
+    "__sources__": {
+      "4. Variables/variables.sol": {
+        "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.3;\n\ncontract Variables {\n    // State variables are stored on the blockchain.\n    string public text = \"Hello\";\n    uint public num = 123;\n    uint public blockNumber;\n\n    function doSomething() public {\n        // Local variables are not saved to the blockchain.\n        uint i = 456;\n\n        // Here are some global variables\n        uint timestamp = block.timestamp; // Current block timestamp\n        address sender = msg.sender; // address of the caller\n        blockNumber = block.number;\n    }\n}",
+        "file": "4. Variables/variables.sol"
+      }
+    }
+  },
+  "5.1 Functions - Reading and Writing to a State Variable/readAndWrite.sol": {
+    "__sources__": {
+      "5.1 Functions - Reading and Writing to a State Variable/readAndWrite.sol": {
+        "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.3;\n\ncontract SimpleStorage {\n    // State variable to store a number\n    uint public num;\n    bool public b = true;\n\n    // You need to send a transaction to write to a state variable.\n    function set(uint _num) public {\n        num = _num;\n    }\n\n    // You can read from a state variable without sending a transaction.\n    function get() public view returns (uint) {\n        return num;\n    }\n    function get_b() public view returns (bool){\n        return b;\n    }\n}",
+        "file": "5.1 Functions - Reading and Writing to a State Variable/readAndWrite.sol"
+      }
+    }
+  },
+  "5.2 Functions - View and Pure/viewAndPure.sol": {
+    "__sources__": {
+      "5.2 Functions - View and Pure/viewAndPure.sol": {
+        "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.3;\n\ncontract ViewAndPure {\n    uint public x = 1;\n\n    // Promise not to modify the state.\n    function addToX(uint y) public view returns (uint) {\n        return x + y;\n    }\n\n    // Promise not to modify or read from the state.\n    function add(uint i, uint j) public pure returns (uint) {\n        return i + j;\n    }\n    \n    function addToX2 (uint y) public {\n        x = x + y;\n    }\n}",
+        "file": "5.2 Functions - View and Pure/viewAndPure.sol"
+      }
+    }
+  },
+  "5.3 Functions - Modifiers and Constructors/modifiersAndConstructors_answer.sol": {
+    "__sources__": {
+      "5.3 Functions - Modifiers and Constructors/modifiersAndConstructors_answer.sol": {
+        "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.3;\n\ncontract FunctionModifier {\n    // We will use these variables to demonstrate how to use\n    // modifiers.\n    address public owner;\n    uint public x = 10;\n    bool public locked;\n\n    constructor() {\n        // Set the transaction sender as the owner of the contract.\n        owner = msg.sender;\n    }\n\n    // Modifier to check that the caller is the owner of\n    // the contract.\n    modifier onlyOwner() {\n        require(msg.sender == owner, \"Not owner\");\n        // Underscore is a special character only used inside\n        // a function modifier and it tells Solidity to\n        // execute the rest of the code.\n        _;\n    }\n\n    // Modifiers can take inputs. This modifier checks that the\n    // address passed in is not the zero address.\n    modifier validAddress(address _addr) {\n        require(_addr != address(0), \"Not valid address\");\n        _;\n    }\n\n    function changeOwner(address _newOwner) public onlyOwner validAddress(_newOwner) {\n        owner = _newOwner;\n    }\n    \n    modifier biggerThan0(uint y) {\n        require(y > 0, \"Not bigger than x\");\n        _;\n    }\n    \n    modifier increaseXbyY(uint y) {\n        _;\n        x = x + y;\n    }\n\n    function increaseX(uint y) public onlyOwner biggerThan0(y) increaseXbyY(y){\n    }\n\n    // Modifiers can be called before and / or after a function.\n    // This modifier prevents a function from being called while\n    // it is still executing.\n    modifier noReentrancy() {\n        require(!locked, \"No reentrancy\");\n\n        locked = true;\n        _;\n        locked = false;\n    }\n\n    function decrement(uint i) public noReentrancy {\n        x -= i;\n\n        if (i > 1) {\n            decrement(i - 1);\n        }\n    }\n}",
+        "file": "5.3 Functions - Modifiers and Constructors/modifiersAndConstructors_answer.sol"
+      }
+    }
+  },
+  "5.3 Functions - Modifiers and Constructors/modifiersAndConstructors.sol": {
+    "__sources__": {
+      "5.3 Functions - Modifiers and Constructors/modifiersAndConstructors.sol": {
+        "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.3;\n\ncontract FunctionModifier {\n    // We will use these variables to demonstrate how to use\n    // modifiers.\n    address public owner;\n    uint public x = 10;\n    bool public locked;\n\n    constructor() {\n        // Set the transaction sender as the owner of the contract.\n        owner = msg.sender;\n    }\n\n    // Modifier to check that the caller is the owner of\n    // the contract.\n    modifier onlyOwner() {\n        require(msg.sender == owner, \"Not owner\");\n        // Underscore is a special character only used inside\n        // a function modifier and it tells Solidity to\n        // execute the rest of the code.\n        _;\n    }\n\n    // Modifiers can take inputs. This modifier checks that the\n    // address passed in is not the zero address.\n    modifier validAddress(address _addr) {\n        require(_addr != address(0), \"Not valid address\");\n        _;\n    }\n\n    function changeOwner(address _newOwner) public onlyOwner validAddress(_newOwner) {\n        owner = _newOwner;\n    }\n    \n    modifier biggerThan0(uint y) {\n        require(y > 0, \"Not bigger than x\");\n        _;\n    }\n    \n    modifier increaseXbyY(uint y) {\n        _;\n        x = x + y;\n    }\n\n    function increaseX(uint y) public onlyOwner biggerThan0(y) increaseXbyY(y){\n    }\n    modifier noReentrancy() {\n        require(!locked, \"No reentrancy\");\n\n        locked = true;\n        _;\n        locked = false;\n    }\n\n    function decrement(uint i) public noReentrancy {\n        x -= i;\n\n        if (i > 1) {\n            decrement(i - 1);\n        }\n    }\n}",
+        "file": "5.3 Functions - Modifiers and Constructors/modifiersAndConstructors.sol"
+      }
+    }
+  },
+  "5.4 Functions - Inputs and Outputs/inputsAndOutputs.sol": {
+    "__sources__": {
+      "5.4 Functions - Inputs and Outputs/inputsAndOutputs.sol": {
+        "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.3;\n\ncontract Function {\n    // Functions can return multiple values.\n    function returnMany()\n        public\n        pure\n        returns (\n            uint,\n            bool,\n            uint\n        )\n    {\n        return (1, true, 2);\n    }\n\n    // Return values can be named.\n    function named()\n        public\n        pure\n        returns (\n            uint x,\n            bool b,\n            uint y\n        )\n    {\n        return (1, true, 2);\n    }\n\n    // Return values can be assigned to their name.\n    // In this case the return statement can be omitted.\n    function assigned()\n        public\n        pure\n        returns (\n            uint x,\n            bool b,\n            uint y\n        )\n    {\n        x = 1;\n        b = true;\n        y = 2;\n    }\n\n    // Use destructing assignment when calling another\n    // function that returns multiple values.\n    function destructingAssigments()\n        public\n        pure\n        returns (\n            uint,\n            bool,\n            uint,\n            uint,\n            uint\n        )\n    {\n        (uint i, bool b, uint j) = returnMany();\n\n        // Values can be left out.\n        (uint x, , uint y) = (4, 5, 6);\n\n        return (i, b, j, x, y);\n    }\n\n    // Cannot use map for neither input nor output\n\n    // Can use array for input\n    function arrayInput(uint[] memory _arr) public {}\n\n    // Can use array for output\n    uint[] public arr;\n\n    function arrayOutput() public view returns (uint[] memory) {\n        return arr;\n    }\n    \n    function returnTwo()\n        public \n        pure \n        returns (\n            int i,\n            bool b\n        )\n    {\n        i = -2;\n        b = true;\n    }\n}",
+        "file": "5.4 Functions - Inputs and Outputs/inputsAndOutputs.sol"
+      }
+    }
+  },
+  "6. Visibility/visibility.sol": {
+    "__sources__": {
+      "6. Visibility/visibility.sol": {
+        "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.3;\n\ncontract Base {\n    // Private function can only be called\n    // - inside this contract\n    // Contracts that inherit this contract cannot call this function.\n    function privateFunc() private pure returns (string memory) {\n        return \"private function called\";\n    }\n\n    function testPrivateFunc() public pure returns (string memory) {\n        return privateFunc();\n    }\n\n    // Internal function can be called\n    // - inside this contract\n    // - inside contracts that inherit this contract\n    function internalFunc() internal pure returns (string memory) {\n        return \"internal function called\";\n    }\n\n    function testInternalFunc() public pure virtual returns (string memory) {\n        return internalFunc();\n    }\n\n    // Public functions can be called\n    // - inside this contract\n    // - inside contracts that inherit this contract\n    // - by other contracts and accounts\n    function publicFunc() public pure returns (string memory) {\n        return \"public function called\";\n    }\n\n    // External functions can only be called\n    // - by other contracts and accounts\n    function externalFunc() external pure returns (string memory) {\n        return \"external function called\";\n    }\n\n    // This function will not compile since we're trying to call\n    // an external function here.\n    // function testExternalFunc() public pure returns (string memory) {\n    //     return externalFunc();\n    // }\n\n    // State variables\n    string private privateVar = \"my private variable\";\n    string internal internalVar = \"my internal variable\";\n    string public publicVar = \"my public variable\";\n    // State variables cannot be external so this code won't compile.\n    // string external externalVar = \"my external variable\";\n}\n\ncontract Child is Base {\n    // Inherited contracts do not have access to private functions\n    // and state variables.\n    // function testPrivateFunc() public pure returns (string memory) {\n    //     return privateFunc();\n    // }\n\n    // Internal function call be called inside child contracts.\n    function testInternalFunc() public pure override returns (string memory) {\n        return internalFunc();\n    }\n    //Child Contract\n    function testInternalVar() public view returns (string memory, string memory) {\n        return (internalVar, publicVar);\n    }\n}",
+        "file": "6. Visibility/visibility.sol"
+      }
+    }
+  },
+  "7.1 Control Flow - If/Else/ifElse_answer.sol": {
+    "__sources__": {
+      "7.1 Control Flow - If/Else/ifElse_answer.sol": {
+        "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.3;\n\ncontract IfElse {\n    function foo(uint x) public pure returns (uint) {\n        if (x < 10) {\n            return 0;\n        } else if (x < 20) {\n            return 1;\n        } else {\n            return 2;\n        }\n    }\n\n    function ternary(uint _x) public pure returns (uint) {\n        // if (_x < 10) {\n        //     return 1;\n        // }\n        // return 2;\n\n        // shorthand way to write if / else statement\n        return _x < 10 ? 1 : 2;\n    }\n    \n    function evenCheck(uint y) public pure returns (bool) {\n        return y%2 == 0 ? true : false;\n    }\n}",
+        "file": "7.1 Control Flow - If/Else/ifElse_answer.sol"
+      }
+    }
+  },
+  "7.1 Control Flow - If/Else/ifElse.sol": {
+    "__sources__": {
+      "7.1 Control Flow - If/Else/ifElse.sol": {
+        "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.3;\n\ncontract IfElse {\n    function foo(uint x) public pure returns (uint) {\n        if (x < 10) {\n            return 0;\n        } else if (x < 20) {\n            return 1;\n        } else {\n            return 2;\n        }\n    }\n\n    function ternary(uint _x) public pure returns (uint) {\n        // if (_x < 10) {\n        //     return 1;\n        // }\n        // return 2;\n\n        // shorthand way to write if / else statement\n        return _x < 10 ? 1 : 2;\n    }\n\n    function evenCheck (uint b) public pure returns (bool){\n        return b % 2 == 0 ? true : false;\n    }\n}",
+        "file": "7.1 Control Flow - If/Else/ifElse.sol"
+      }
+    }
+  },
+  "7.2 Control Flow - Loops/loops_answer.sol": {
+    "__sources__": {
+      "7.2 Control Flow - Loops/loops_answer.sol": {
+        "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.3;\n\ncontract Loop {\n    uint public count;\n    function loop() public{\n        // for loop\n        for (uint i = 0; i < 10; i++) {\n            if (i == 5) {\n                // Skip to next iteration with continue\n                continue;\n            }\n            if (i == 5) {\n                // Exit loop with break\n                break;\n            }\n            count++;\n        }\n\n        // while loop\n        uint j;\n        while (j < 10) {\n            j++;\n        }\n    }\n}\n",
+        "file": "7.2 Control Flow - Loops/loops_answer.sol"
+      }
+    }
+  },
+  "7.2 Control Flow - Loops/loops.sol": {
+    "__sources__": {
+      "7.2 Control Flow - Loops/loops.sol": {
+        "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.3;\n\ncontract Loop {\n    uint public count;\n    function loop() public {\n        // for loop\n        for (uint i = 0; i < 10; i++) {\n            if (i == 5) {\n                // Skip to next iteration with continue\n                continue;\n            }\n            if (i == 5) {\n                // Exit loop with break\n                break;\n            }\n            count++;\n        }\n\n        // while loop\n        uint j;\n        while (j < 10) {\n            j++;\n        }\n    }\n}\n",
+        "file": "7.2 Control Flow - Loops/loops.sol"
+      }
+    }
+  },
+  "8.1 Data Structures - Arrays/arrays_answer.sol": {
+    "__sources__": {
+      "8.1 Data Structures - Arrays/arrays_answer.sol": {
+        "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.3;\n\ncontract Array {\n    // Several ways to initialize an array\n    uint[] public arr;\n    uint[] public arr2 = [1, 2, 3];\n    // Fixed sized array, all elements initialize to 0\n    uint[10] public myFixedSizeArr;\n    uint[3] public arr3 = [0, 1, 2];\n\n    function get(uint i) public view returns (uint) {\n        return arr[i];\n    }\n\n    // Solidity can return the entire array.\n    // But this function should be avoided for\n    // arrays that can grow indefinitely in length.\n    function getArr() public view returns (uint[3] memory) {\n        return arr3;\n    }\n\n    function push(uint i) public {\n        // Append to array\n        // This will increase the array length by 1.\n        arr.push(i);\n    }\n\n    function pop() public {\n        // Remove last element from array\n        // This will decrease the array length by 1\n        arr.pop();\n    }\n\n    function getLength() public view returns (uint) {\n        return arr.length;\n    }\n\n    function remove(uint index) public {\n        // Delete does not change the array length.\n        // It resets the value at index to it's default value,\n        // in this case 0\n        delete arr[index];\n    }\n}\n\ncontract CompactArray {\n    uint[] public arr;\n\n    // Deleting an element creates a gap in the array.\n    // One trick to keep the array compact is to\n    // move the last element into the place to delete.\n    function remove(uint index) public {\n        // Move the last element into the place to delete\n        arr[index] = arr[arr.length - 1];\n        // Remove the last element\n        arr.pop();\n    }\n\n    function test() public {\n        arr.push(1);\n        arr.push(2);\n        arr.push(3);\n        arr.push(4);\n        // [1, 2, 3, 4]\n\n        remove(1);\n        // [1, 4, 3]\n\n        remove(2);\n        // [1, 4]\n    }\n}",
+        "file": "8.1 Data Structures - Arrays/arrays_answer.sol"
+      }
+    }
+  },
+  "8.1 Data Structures - Arrays/arrays.sol": {
+    "__sources__": {
+      "8.1 Data Structures - Arrays/arrays.sol": {
+        "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.3;\n\ncontract Array {\n    // Several ways to initialize an array\n    uint[] public arr;\n    uint[] public arr2 = [1, 2, 3];\n    // Fixed sized array, all elements initialize to 0\n    uint[10] public myFixedSizeArr;\n    uint[3] public arr3 = [0, 1, 2];\n\n    function get(uint i) public view returns (uint) {\n        return arr[i];\n    }\n\n    // Solidity can return the entire array.\n    // But this function should be avoided for\n    // arrays that can grow indefinitely in length.\n    function getArr() public view returns (uint[3] memory) {\n        return arr3;\n    }\n\n    function push(uint i) public {\n        // Append to array\n        // This will increase the array length by 1.\n        arr.push(i);\n    }\n\n    function pop() public {\n        // Remove last element from array\n        // This will decrease the array length by 1\n        arr.pop();\n    }\n\n    function getLength() public view returns (uint) {\n        return arr.length;\n    }\n\n    function remove(uint index) public {\n        // Delete does not change the array length.\n        // It resets the value at index to it's default value,\n        // in this case 0\n        delete arr[index];\n    }\n}\n\ncontract CompactArray {\n    uint[] public arr;\n\n    // Deleting an element creates a gap in the array.\n    // One trick to keep the array compact is to\n    // move the last element into the place to delete.\n    function remove(uint index) public {\n        // Move the last element into the place to delete\n        arr[index] = arr[arr.length - 1];\n        // Remove the last element\n        arr.pop();\n    }\n\n    function test() public {\n        arr.push(1);\n        arr.push(2);\n        arr.push(3);\n        arr.push(4);\n        // [1, 2, 3, 4]\n\n        remove(1);\n        // [1, 4, 3]\n\n        remove(2);\n        // [1, 4]\n    }\n}",
+        "file": "8.1 Data Structures - Arrays/arrays.sol"
+      }
+    }
+  },
+  "8.2 Data Structures - Mappings/mappings_answer.sol": {
+    "__sources__": {
+      "8.2 Data Structures - Mappings/mappings_answer.sol": {
+        "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.3;\n\ncontract Mapping {\n    // Mapping from address to uint\n    mapping(address => uint) public balances;\n\n    function get(address _addr) public view returns (uint) {\n        // Mapping always returns a value.\n        // If the value was never set, it will return the default value.\n        return balances[_addr];\n    }\n\n    function set(address _addr) public {\n        // Update the value at this address\n        balances[_addr] = _addr.balance;\n    }\n\n    function remove(address _addr) public {\n        // Reset the value to the default value.\n        delete balances[_addr];\n    }\n}\n\ncontract NestedMapping {\n    // Nested mapping (mapping from address to another mapping)\n    mapping(address => mapping(uint => bool)) public nested;\n\n    function get(address _addr1, uint _i) public view returns (bool) {\n        // You can get values from a nested mapping\n        // even when it is not initialized\n        return nested[_addr1][_i];\n    }\n\n    function set(\n        address _addr1,\n        uint _i,\n        bool _boo\n    ) public {\n        nested[_addr1][_i] = _boo;\n    }\n\n    function remove(address _addr1, uint _i) public {\n        delete nested[_addr1][_i];\n    }\n}",
+        "file": "8.2 Data Structures - Mappings/mappings_answer.sol"
+      }
+    }
+  },
+  "8.2 Data Structures - Mappings/mappings.sol": {
+    "__sources__": {
+      "8.2 Data Structures - Mappings/mappings.sol": {
+        "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.3;\n\ncontract Mapping {\n    // Mapping from address to uint\n    mapping(address => uint) public balances;\n\n    function get(address _addr) public view returns (uint) {\n        // Mapping always returns a value.\n        // If the value was never set, it will return the default value.\n        return balances[_addr];\n    }\n\n    function set(address _addr) public {\n        // Update the value at this address\n        balances[_addr] = _addr.balance;\n    }\n\n    function remove(address _addr) public {\n        // Reset the value to the default value.\n        delete balances[_addr];\n    }\n}\n\ncontract NestedMapping {\n    // Nested mapping (mapping from address to another mapping)\n    mapping(address => mapping(uint => bool)) public nested;\n\n    function get(address _addr1, uint _i) public view returns (bool) {\n        // You can get values from a nested mapping\n        // even when it is not initialized\n        return nested[_addr1][_i];\n    }\n\n    function set(\n        address _addr1,\n        uint _i,\n        bool _boo\n    ) public {\n        nested[_addr1][_i] = _boo;\n    }\n\n    function remove(address _addr1, uint _i) public {\n        delete nested[_addr1][_i];\n    }\n}",
+        "file": "8.2 Data Structures - Mappings/mappings.sol"
+      }
+    }
+  },
+  "8.3 Data Structures - Structs/structs.sol": {
+    "__sources__": {
+      "8.3 Data Structures - Structs/structs.sol": {
+        "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.3;\n\ncontract Todos {\n    struct Todo {\n        string text;\n        bool completed;\n    }\n\n    // An array of 'Todo' structs\n    Todo[] public todos;\n\n    function create(string memory _text) public {\n        // 3 ways to initialize a struct\n        // - calling it like a function\n        todos.push(Todo(_text, false));\n\n        // key value mapping\n        todos.push(Todo({text: _text, completed: false}));\n\n        // initialize an empty struct and then update it\n        Todo memory todo;\n        todo.text = _text;\n        // todo.completed initialized to false\n\n        todos.push(todo);\n    }\n\n    // Solidity automatically created a getter for 'todos' so\n    // you don't actually need this function.\n    function get(uint _index) public view returns (string memory text, bool completed) {\n        Todo storage todo = todos[_index];\n        return (todo.text, todo.completed);\n    }\n\n    // update text\n    function update(uint _index, string memory _text) public {\n        Todo storage todo = todos[_index];\n        todo.text = _text;\n    }\n\n    // update completed\n    function toggleCompleted(uint _index) public {\n        Todo storage todo = todos[_index];\n        todo.completed = !todo.completed;\n    }\n\n    function remove (uint _index) public {\n        delete todos[_index];\n    }\n}",
+        "file": "8.3 Data Structures - Structs/structs.sol"
+      }
+    }
+  },
+  "8.4 Data Structures - Enums/enums_answer.sol": {
+    "__sources__": {
+      "8.4 Data Structures - Enums/enums_answer.sol": {
+        "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.3;\n\ncontract Enum {\n    // Enum representing shipping status\n    enum Status {\n        Pending,\n        Shipped,\n        Accepted,\n        Rejected,\n        Canceled\n    }\n    \n    enum Size {\n        S,\n        M,\n        L\n    }\n\n    // Default value is the first element listed in\n    // definition of the type, in this case \"Pending\"\n    Status public status;\n    Size public sizes;\n\n    function get() public view returns (Status) {\n        return status;\n    }\n    \n    function getSize() public view returns (Size) {\n        return sizes;\n    }\n\n    // Update status by passing uint into input\n    function set(Status _status) public {\n        status = _status;\n    }\n\n    // You can update to a specific enum like this\n    function cancel() public {\n        status = Status.Canceled;\n    }\n\n    // delete resets the enum to its first value, 0\n    function reset() public {\n        delete status;\n    }\n}",
+        "file": "8.4 Data Structures - Enums/enums_answer.sol"
+      }
+    }
+  },
+  "8.4 Data Structures - Enums/enums.sol": {
+    "__sources__": {
+      "8.4 Data Structures - Enums/enums.sol": {
+        "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.3;\n\ncontract Enum {\n    // Enum representing shipping status\n    enum Status {\n        Pending,\n        Shipped,\n        Accepted,\n        Rejected,\n        Canceled\n    }\n\n    enum Size {\n        S,\n        M,\n        L\n    }\n    Status public status;\n    Size public sizes;\n\n    function get() public view returns (Status) {\n        return status;\n    }\n    function getSize() public view returns (Size) {\n        return sizes;\n    }\n\n    // Update status by passing uint into input\n    function set(Status _status) public {\n        status = _status;\n    }\n\n    // You can update to a specific enum like this\n    function cancel() public {\n        status = Status.Canceled;\n    }\n\n    // delete resets the enum to its first value, 0\n    function reset() public {\n        delete status;\n    }\n}",
+        "file": "8.4 Data Structures - Enums/enums.sol"
+      }
+    }
+  },
+  "9. Data Locations/dataLocations_answer.sol": {
+    "__sources__": {
+      "9. Data Locations/dataLocations_answer.sol": {
+        "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.3;\n\ncontract DataLocations {\n    uint[] public arr;\n    mapping(uint => address) map;\n    struct MyStruct {\n        uint foo;\n    }\n    mapping(uint => MyStruct) public myStructs;\n\n    function f() public returns (MyStruct memory, MyStruct memory, MyStruct memory){\n        // call _f with state variables\n        _f(arr, map, myStructs[1]);\n        // get a struct from a mapping\n        MyStruct storage myStruct = myStructs[1];\n        myStruct.foo = 4;\n        // create a struct in memory\n        MyStruct memory myMemStruct = MyStruct(0);\n        MyStruct memory myMemStruct2 = myMemStruct;\n        myMemStruct2.foo = 1;\n        \n        MyStruct memory myMemStruct3 = myStruct;\n        myMemStruct3.foo = 3;\n        return (myStruct, myMemStruct2, myMemStruct3);\n    }\n\n    function _f(\n        uint[] storage _arr,\n        mapping(uint => address) storage _map,\n        MyStruct storage _myStruct\n    ) internal {\n        // do something with storage variables\n    }\n\n    // You can return memory variables\n    function g(uint[] memory _arr) public returns (uint[] memory) {\n        // do something with memory array\n        _arr[0] = 1;\n    }\n\n    function h(uint[] calldata _arr) external {\n        // do something with calldata array\n        // _arr[0] = 1;\n    }\n}\n",
+        "file": "9. Data Locations/dataLocations_answer.sol"
+      }
+    }
+  },
+  "9. Data Locations/dataLocations.sol": {
+    "__sources__": {
+      "9. Data Locations/dataLocations.sol": {
+        "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.3;\n\ncontract DataLocations {\n    uint[] public arr;\n    mapping(uint => address) map;\n    struct MyStruct {\n        uint foo;\n    }\n    mapping(uint => MyStruct) public myStructs;\n\n    function f() public returns (MyStruct memory, MyStruct memory, MyStruct memory){\n        // call _f with state variables\n        _f(arr, map, myStructs[1]);\n        // get a struct from a mapping\n        MyStruct storage myStruct = myStructs[1];\n        myStruct.foo = 4;\n        // create a struct in memory\n        MyStruct memory myMemStruct = MyStruct(0);\n        MyStruct memory myMemStruct2 = myMemStruct;\n        myMemStruct2.foo = 1;\n        \n        MyStruct memory myMemStruct3 = myStruct;\n        myMemStruct3.foo = 3;\n        return (myStruct, myMemStruct2, myMemStruct3);\n    }\n\n    function _f(\n        uint[] storage _arr,\n        mapping(uint => address) storage _map,\n        MyStruct storage _myStruct\n    ) internal {\n        // do something with storage variables\n    }\n\n    // You can return memory variables\n    function g(uint[] memory _arr) public returns (uint[] memory) {\n        // do something with memory array\n        _arr[0] = 1;\n    }\n\n    function h(uint[] calldata _arr) external {\n        // do something with calldata array\n        // _arr[0] = 1;\n    }\n}\n",
+        "file": "9. Data Locations/dataLocations.sol"
+      }
+    }
+  },
+  "10.1 Transactions - Ether and Wei/etherAndWei.sol": {
+    "__sources__": {
+      "10.1 Transactions - Ether and Wei/etherAndWei.sol": {
+        "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.3;\n\ncontract EtherUnits {\n    uint public oneWei = 1 wei;\n    // 1 wei is equal to 1\n    bool public isOneWei = 1 wei == 1;\n\n    uint public oneEther = 1 ether;\n    // 1 ether is equal to 10^18 wei\n    bool public isOneEther = 1 ether == 1e18;\n\n    uint public oneGwei = 1 gwei;\n    // 1 ether is equal to 10^9 wei\n    bool public isOneGwei = 1 gwei == 1e9;\n}",
+        "file": "10.1 Transactions - Ether and Wei/etherAndWei.sol"
+      }
+    }
+  },
+  "10.2 Transactions - Gas and Gas Price/gasAndGasPrice.sol": {
+    "__sources__": {
+      "10.2 Transactions - Gas and Gas Price/gasAndGasPrice.sol": {
+        "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.3;\n\ncontract Gas {\n    uint public i = 0;\n    uint public cost = 170367;\n\n    // Using up all of the gas that you send causes your transaction to fail.\n    // State changes are undone.\n    // Gas spent are not refunded.\n    function forever() public {\n        // Here we run a loop until all of the gas are spent\n        // and the transaction fails\n        while (true) {\n            i += 1;\n        }\n    }\n}",
+        "file": "10.2 Transactions - Gas and Gas Price/gasAndGasPrice.sol"
+      }
+    }
+  },
+  "10.3 Transactions - Sending Ether/sendingEther.sol": {
+    "__sources__": {
+      "10.3 Transactions - Sending Ether/sendingEther.sol": {
+        "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.3;\n\ncontract ReceiveEther {\n    /*\n    Which function is called, fallback() or receive()?\n\n           send Ether\n               |\n         msg.data is empty?\n              / \\\n            yes  no\n            /     \\\nreceive() exists?  fallback()\n         /   \\\n        yes   no\n        /      \\\n    receive()   fallback()\n    */\n\n    // Function to receive Ether. msg.data must be empty\n    receive() external payable {}\n\n    // Fallback function is called when msg.data is not empty\n    fallback() external payable {}\n\n    function getBalance() public view returns (uint) {\n        return address(this).balance;\n    }\n}\n\ncontract SendEther {\n    function sendViaTransfer(address payable _to) public payable {\n        // This function is no longer recommended for sending Ether.\n        _to.transfer(msg.value);\n    }\n\n    function sendViaSend(address payable _to) public payable {\n        // Send returns a boolean value indicating success or failure.\n        // This function is not recommended for sending Ether.\n        bool sent = _to.send(msg.value);\n        require(sent, \"Failed to send Ether\");\n    }\n\n    function sendViaCall(address payable _to) public payable {\n        // Call returns a boolean value indicating success or failure.\n        // This is the current recommended method to use.\n        (bool sent, bytes memory data) = _to.call{value: msg.value}(\"\");\n        require(sent, \"Failed to send Ether\");\n    }\n}\n\ncontract Charity {\n    address public owner;\n    constructor() {\n        owner = msg.sender;\n    }\n    function donate() public payable {}\n\n    function withdraw() public {\n        uint amount = address(this).balance;\n\n        (bool sent, bytes memory data) = owner.call{value: amount}(\"\");\n        require(sent, \"Failed to send Ether\");\n    }\n}",
+        "file": "10.3 Transactions - Sending Ether/sendingEther.sol"
+      }
+    }
+  }
+}

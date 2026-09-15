@@ -1,0 +1,66 @@
+{
+	"compiler": {
+		"version": "0.8.34+commit.80d5c536"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"name": "count",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "loop",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"7.2 Control Flow - Loops/loops.sol": "Loop"
+		},
+		"evmVersion": "osaka",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"7.2 Control Flow - Loops/loops.sol": {
+			"keccak256": "0x40613961c3a9ada2b01f394b6480ff9830aa4cfce6c808bd6793e8e5d8638e59",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://ab3faaace818424a5d5629c18be5bebd20c0249658cec047ac2674085daec259",
+				"dweb:/ipfs/Qma8oCpx59eDhjibjreRxK8zM9BqUr31CqFLWQ6XQRx8cX"
+			]
+		}
+	},
+	"version": 1
+}
