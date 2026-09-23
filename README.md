@@ -3,7 +3,7 @@
 <div align="center">
 
 ![Blockchain](https://img.shields.io/badge/Blockchain-Technology-blue?style=for-the-badge&logo=bitcoin)
-![Experiments](https://img.shields.io/badge/Experiments-5-green?style=for-the-badge)
+![Experiments](https://img.shields.io/badge/Experiments-6-green?style=for-the-badge)
 ![Python](https://img.shields.io/badge/Python-3.8+-yellow?style=for-the-badge&logo=python)
 ![Solidity](https://img.shields.io/badge/Solidity-0.8+-purple?style=for-the-badge&logo=solidity)
 
@@ -180,6 +180,36 @@ Master smart contract development with comprehensive coverage of Solidity progra
 </td>
 <td width="50%" valign="top">
 
+### 🗳️ [Experiment 6: Smart Contract Deployment](./Experiment%206)
+**CampusBudgetAllocator — Voting & Transactions**
+
+Create and deploy a real-world smart contract that implements weighted voting and proportional budget distribution for campus club funding.
+
+**Topics Covered:**
+- `require` statement guards
+- `mapping`, `storage`, `memory` keywords
+- `bytes32` vs `string` tradeoffs
+- Struct-based data modeling
+- Delegation chains & loop detection
+- Proportional budget formula
+
+**Technologies:**
+- Solidity 0.8+
+- Remix IDE
+- Ethereum Virtual Machine
+
+**Key Concepts:**
+- Access control
+- Vote delegation
+- State management
+- On-chain budget allocation
+
+</td>
+</tr>
+
+<tr>
+<td colspan="2" valign="top">
+
 ### 📊 **Experiment Progression**
 
 ```mermaid
@@ -188,12 +218,14 @@ graph TD
     B --> C[Exp 3: Distributed Systems]
     C --> D[Exp 4: Wallet Integration]
     D --> E[Exp 5: Smart Contracts]
-    
+    E --> F[Exp 6: Contract Deployment]
+
     style A fill:#e1f5ff
     style B fill:#d4edff
     style C fill:#c7e5ff
     style D fill:#badeff
     style E fill:#add6ff
+    style F fill:#a0ceff
 ```
 
 **Learning Path:**
@@ -202,6 +234,7 @@ graph TD
 3. **Network** → Distributed Systems
 4. **Integration** → Real-world Tools
 5. **Development** → Smart Contracts
+6. **Deployment** → Contract Transactions
 
 </td>
 </tr>
@@ -264,6 +297,11 @@ python hadcoin_node_5003.py
 **Experiment 5 - Solidity:**
 - Open [Remix IDE](https://remix.ethereum.org)
 - Import files from `blockchain_exp5_solidity` folder
+
+**Experiment 6 - Smart Contract Deployment:**
+- Open [Remix IDE](https://remix.ethereum.org)
+- Load `CampusBudgetAllocator.sol`
+- Compile and deploy with club names + treasury pool
 
 ---
 
@@ -365,6 +403,11 @@ Blockchain_Experiments_Atharva_Lotankar_20/
 │   │   ├── 10.1-10.3 Transactions/
 │   │   └── README.md
 │   ├── Blockchain_Lab_5.pdf        # Documentation
+│   └── README.md                   # Experiment guide
+│
+├── Experiment 6/                    # Smart Contract Deployment
+│   ├── CampusBudgetAllocator.sol   # Voting & budget allocation contract
+│   ├── Blockchain_Lab_6 - Atharva Lotankar(D20C_20).pdf  # Documentation
 │   └── README.md                   # Experiment guide
 │
 └── README.md                        # This file
@@ -543,12 +586,13 @@ For questions, discussions, or collaboration:
 | **Experiment 3** | ✅ Complete | ⭐⭐⭐⭐ Advanced | 4-5 hours |
 | **Experiment 4** | ✅ Complete | ⭐⭐ Beginner | 1-2 hours |
 | **Experiment 5** | ✅ Complete | ⭐⭐⭐⭐ Advanced | 5-6 hours |
+| **Experiment 6** | ✅ Complete | ⭐⭐⭐ Intermediate | 2-3 hours |
 
 ---
 
 ### 🎉 All Experiments Completed Successfully!
 
-*From cryptographic fundamentals to smart contract deployment - A complete blockchain journey!*
+*From cryptographic fundamentals to smart contract creation and deployment - A complete blockchain journey!*
 
 ---
 
