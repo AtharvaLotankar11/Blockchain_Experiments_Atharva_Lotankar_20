@@ -3,7 +3,7 @@
 <div align="center">
 
 ![Blockchain](https://img.shields.io/badge/Blockchain-Technology-blue?style=for-the-badge&logo=bitcoin)
-![Experiments](https://img.shields.io/badge/Experiments-6-green?style=for-the-badge)
+![Experiments](https://img.shields.io/badge/Experiments-7-green?style=for-the-badge)
 ![Python](https://img.shields.io/badge/Python-3.8+-yellow?style=for-the-badge&logo=python)
 ![Solidity](https://img.shields.io/badge/Solidity-0.8+-purple?style=for-the-badge&logo=solidity)
 
@@ -208,6 +208,37 @@ Create and deploy a real-world smart contract that implements weighted voting an
 </tr>
 
 <tr>
+<td width="50%" valign="top">
+
+### 🛡️ [Experiment 7: Local Blockchain & Escrow Contract](./Experiment%207)
+**Ganache + Remix IDE + BugBountyEscrow**
+
+Establish a local Ethereum blockchain using Ganache, connect Remix IDE via External HTTP Provider, and deploy a full escrow smart contract that manages the complete bug bounty lifecycle.
+
+**Topics Covered:**
+- Ganache local blockchain setup
+- Remix ↔ Ganache via HTTP Provider
+- Escrow design pattern
+- Access control with `require`
+- Checks-Effects-Interactions (CEI)
+- Event logging & Ganache verification
+
+**Technologies:**
+- Solidity 0.8+
+- Ganache GUI (Truffle Suite)
+- Remix IDE
+
+**Key Concepts:**
+- Local blockchain environment
+- Escrow & payment release
+- Reentrancy mitigation
+- Transaction lifecycle on Ganache
+
+</td>
+<td width="50%" valign="top"></td>
+</tr>
+
+<tr>
 <td colspan="2" valign="top">
 
 ### 📊 **Experiment Progression**
@@ -219,6 +250,7 @@ graph TD
     C --> D[Exp 4: Wallet Integration]
     D --> E[Exp 5: Smart Contracts]
     E --> F[Exp 6: Contract Deployment]
+    F --> G[Exp 7: Local Blockchain & Escrow]
 
     style A fill:#e1f5ff
     style B fill:#d4edff
@@ -226,6 +258,7 @@ graph TD
     style D fill:#badeff
     style E fill:#add6ff
     style F fill:#a0ceff
+    style G fill:#93c6ff
 ```
 
 **Learning Path:**
@@ -235,6 +268,7 @@ graph TD
 4. **Integration** → Real-world Tools
 5. **Development** → Smart Contracts
 6. **Deployment** → Contract Transactions
+7. **Local Chain** → Ganache + Escrow Lifecycle
 
 </td>
 </tr>
@@ -302,6 +336,13 @@ python hadcoin_node_5003.py
 - Open [Remix IDE](https://remix.ethereum.org)
 - Load `CampusBudgetAllocator.sol`
 - Compile and deploy with club names + treasury pool
+
+**Experiment 7 - Ganache + BugBountyEscrow:**
+1. Start **Ganache GUI** (RPC: `http://127.0.0.1:7545`)
+2. Open [Remix IDE](https://remix.ethereum.org) → load `BugBountyEscrow.sol`
+3. Set environment to **Custom - External HTTP Provider** → `http://127.0.0.1:7545`
+4. Compile with Solidity `0.8.x` and click **Deploy**
+5. Execute lifecycle: `createBounty` → `submitBug` → `approveBug` → `releasePayment`
 
 ---
 
@@ -408,6 +449,11 @@ Blockchain_Experiments_Atharva_Lotankar_20/
 ├── Experiment 6/                    # Smart Contract Deployment
 │   ├── CampusBudgetAllocator.sol   # Voting & budget allocation contract
 │   ├── Blockchain_Lab_6 - Atharva Lotankar(D20C_20).pdf  # Documentation
+│   └── README.md                   # Experiment guide
+│
+├── Experiment 7/                    # Local Blockchain & Escrow Contract
+│   ├── BugBountyEscrow.sol         # Escrow smart contract (Ganache + Remix)
+│   ├── Blockchain_Lab_7 - Atharva Lotankar(D20C_20).pdf  # Documentation
 │   └── README.md                   # Experiment guide
 │
 └── README.md                        # This file
@@ -587,12 +633,13 @@ For questions, discussions, or collaboration:
 | **Experiment 4** | ✅ Complete | ⭐⭐ Beginner | 1-2 hours |
 | **Experiment 5** | ✅ Complete | ⭐⭐⭐⭐ Advanced | 5-6 hours |
 | **Experiment 6** | ✅ Complete | ⭐⭐⭐ Intermediate | 2-3 hours |
+| **Experiment 7** | ✅ Complete | ⭐⭐⭐ Intermediate | 2-3 hours |
 
 ---
 
 ### 🎉 All Experiments Completed Successfully!
 
-*From cryptographic fundamentals to smart contract creation and deployment - A complete blockchain journey!*
+*From cryptographic fundamentals to local blockchain deployment with Ganache and Remix — A complete blockchain journey!*
 
 ---
 
