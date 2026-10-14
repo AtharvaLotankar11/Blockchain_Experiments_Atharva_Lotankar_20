@@ -3,7 +3,7 @@
 <div align="center">
 
 ![Blockchain](https://img.shields.io/badge/Blockchain-Technology-blue?style=for-the-badge&logo=bitcoin)
-![Experiments](https://img.shields.io/badge/Experiments-7-green?style=for-the-badge)
+![Experiments](https://img.shields.io/badge/Experiments-8-green?style=for-the-badge)
 ![Python](https://img.shields.io/badge/Python-3.8+-yellow?style=for-the-badge&logo=python)
 ![Solidity](https://img.shields.io/badge/Solidity-0.8+-purple?style=for-the-badge&logo=solidity)
 
@@ -235,7 +235,33 @@ Establish a local Ethereum blockchain using Ganache, connect Remix IDE via Exter
 - Transaction lifecycle on Ganache
 
 </td>
-<td width="50%" valign="top"></td>
+<td width="50%" valign="top">
+
+### 🏦 [Experiment 8: Decentralized Banking DApp](./Experiment%208)
+**MetaMask + Ethers.js + OptimalBankingDApp**
+
+Configure a MetaMask wallet and integrate it with a full-stack banking DApp — deposit, withdraw, and transfer Ether securely using a reentrancy-safe Solidity contract and an Ethers.js-powered front-end.
+
+**Topics Covered:**
+- MetaMask as a Web3 provider (`window.ethereum`)
+- Ethers.js Provider vs Signer vs Contract instance
+- Checks-Effects-Interactions (CEI) pattern
+- Gas-optimized state updates
+- Front-end DApp integration
+
+**Technologies:**
+- Solidity 0.8+
+- Remix IDE + Ganache
+- Ethers.js v5.7
+- MetaMask
+
+**Key Concepts:**
+- Reentrancy protection
+- ABI & contract interaction
+- Web3 wallet integration
+- DApp UI development
+
+</td>
 </tr>
 
 <tr>
@@ -251,6 +277,7 @@ graph TD
     D --> E[Exp 5: Smart Contracts]
     E --> F[Exp 6: Contract Deployment]
     F --> G[Exp 7: Local Blockchain & Escrow]
+    G --> H[Exp 8: Banking DApp & MetaMask]
 
     style A fill:#e1f5ff
     style B fill:#d4edff
@@ -259,6 +286,7 @@ graph TD
     style E fill:#add6ff
     style F fill:#a0ceff
     style G fill:#93c6ff
+    style H fill:#86beff
 ```
 
 **Learning Path:**
@@ -269,6 +297,7 @@ graph TD
 5. **Development** → Smart Contracts
 6. **Deployment** → Contract Transactions
 7. **Local Chain** → Ganache + Escrow Lifecycle
+8. **DApp** → MetaMask + Banking Front-End
 
 </td>
 </tr>
@@ -343,6 +372,15 @@ python hadcoin_node_5003.py
 3. Set environment to **Custom - External HTTP Provider** → `http://127.0.0.1:7545`
 4. Compile with Solidity `0.8.x` and click **Deploy**
 5. Execute lifecycle: `createBounty` → `submitBug` → `approveBug` → `releasePayment`
+
+**Experiment 8 - MetaMask + Banking DApp:**
+1. Start **Ganache GUI** (RPC: `http://127.0.0.1:7545`)
+2. Open [Remix IDE](https://remix.ethereum.org) → load `OptimalBankingDApp.sol`
+3. Compile with Solidity `0.8.x` and deploy; copy the contract address
+4. Paste the address into `index.html` → `contractAddress`
+5. Open `index.html` via **VS Code Live Server** at `http://127.0.0.1:5500/index.html`
+6. Click **Connect MetaMask Wallet** and approve in MetaMask
+7. Use the UI to Deposit, Withdraw, or Transfer ETH
 
 ---
 
@@ -454,6 +492,12 @@ Blockchain_Experiments_Atharva_Lotankar_20/
 ├── Experiment 7/                    # Local Blockchain & Escrow Contract
 │   ├── BugBountyEscrow.sol         # Escrow smart contract (Ganache + Remix)
 │   ├── Blockchain_Lab_7 - Atharva Lotankar(D20C_20).pdf  # Documentation
+│   └── README.md                   # Experiment guide
+│
+├── Experiment 8/                    # Decentralized Banking DApp
+│   ├── OptimalBankingDApp.sol      # Banking smart contract (deposit/withdraw/transfer)
+│   ├── index.html                  # Front-end DApp UI (MetaMask + Ethers.js)
+│   ├── Blockchain_Lab_8 - Atharva Lotankar(D20C_20).pdf  # Documentation
 │   └── README.md                   # Experiment guide
 │
 └── README.md                        # This file
@@ -634,12 +678,13 @@ For questions, discussions, or collaboration:
 | **Experiment 5** | ✅ Complete | ⭐⭐⭐⭐ Advanced | 5-6 hours |
 | **Experiment 6** | ✅ Complete | ⭐⭐⭐ Intermediate | 2-3 hours |
 | **Experiment 7** | ✅ Complete | ⭐⭐⭐ Intermediate | 2-3 hours |
+| **Experiment 8** | ✅ Complete | ⭐⭐⭐ Intermediate | 2-3 hours |
 
 ---
 
 ### 🎉 All Experiments Completed Successfully!
 
-*From cryptographic fundamentals to local blockchain deployment with Ganache and Remix — A complete blockchain journey!*
+*From cryptographic fundamentals to a full MetaMask-integrated DApp — A complete blockchain journey!*
 
 ---
 
