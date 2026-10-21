@@ -3,7 +3,7 @@
 <div align="center">
 
 ![Blockchain](https://img.shields.io/badge/Blockchain-Technology-blue?style=for-the-badge&logo=bitcoin)
-![Experiments](https://img.shields.io/badge/Experiments-8-green?style=for-the-badge)
+![Experiments](https://img.shields.io/badge/Experiments-10-green?style=for-the-badge)
 ![Python](https://img.shields.io/badge/Python-3.8+-yellow?style=for-the-badge&logo=python)
 ![Solidity](https://img.shields.io/badge/Solidity-0.8+-purple?style=for-the-badge&logo=solidity)
 
@@ -265,6 +265,62 @@ Configure a MetaMask wallet and integrate it with a full-stack banking DApp — 
 </tr>
 
 <tr>
+<td width="50%" valign="top">
+
+### 🏢 [Experiment 9: Multi-Signature Wallet](./Experiment%209)
+**Enterprise-Grade Multi-Party Authorization**
+
+Implement a secure multi-signature wallet requiring multiple authorized parties to approve high-value transactions, demonstrating enterprise access control patterns.
+
+**Topics Covered:**
+- Multi-party authorization
+- Transaction approval workflow
+- Signature threshold management
+- Owner management
+- Transaction queuing
+
+**Technologies:**
+- Solidity 0.8+
+- Remix IDE
+- Ganache
+
+**Key Concepts:**
+- M-of-N signatures
+- Access control lists
+- Transaction lifecycle
+- Security patterns
+
+</td>
+<td width="50%" valign="top">
+
+### ⛓️ [Experiment 10: Hyperledger Fabric Network](./Experiment%2010)
+**Permissioned Enterprise Blockchain**
+
+Deploy a complete Hyperledger Fabric network with chaincode, demonstrating enterprise blockchain for secure asset management with certificate-based authentication.
+
+**Topics Covered:**
+- Fabric architecture (Peers, Orderers, Channels)
+- Chaincode deployment
+- Asset creation & transfer
+- Certificate Authority (CA)
+- Permissioned networks
+
+**Technologies:**
+- Hyperledger Fabric 2.5.16
+- Docker & Docker Compose
+- Node.js & JavaScript
+- WSL/Ubuntu
+
+**Key Concepts:**
+- Private blockchain
+- Endorsement policies
+- Channel-based privacy
+- Enterprise consensus
+
+</td>
+</tr>
+
+<tr>
 <td colspan="2" valign="top">
 
 ### 📊 **Experiment Progression**
@@ -278,15 +334,19 @@ graph TD
     E --> F[Exp 6: Contract Deployment]
     F --> G[Exp 7: Local Blockchain & Escrow]
     G --> H[Exp 8: Banking DApp & MetaMask]
+    H --> I[Exp 9: Multi-Signature Wallet]
+    I --> J[Exp 10: Hyperledger Fabric]
 
-    style A fill:#e1f5ff
-    style B fill:#d4edff
-    style C fill:#c7e5ff
-    style D fill:#badeff
-    style E fill:#add6ff
-    style F fill:#a0ceff
-    style G fill:#93c6ff
-    style H fill:#86beff
+    style A fill:#e1f5ff,stroke:#0066cc,stroke-width:2px,color:#000
+    style B fill:#d4edff,stroke:#0066cc,stroke-width:2px,color:#000
+    style C fill:#c7e5ff,stroke:#0066cc,stroke-width:2px,color:#000
+    style D fill:#badeff,stroke:#0066cc,stroke-width:2px,color:#000
+    style E fill:#add6ff,stroke:#0066cc,stroke-width:2px,color:#000
+    style F fill:#a0ceff,stroke:#0066cc,stroke-width:2px,color:#000
+    style G fill:#93c6ff,stroke:#0066cc,stroke-width:2px,color:#000
+    style H fill:#86beff,stroke:#0066cc,stroke-width:2px,color:#000
+    style I fill:#79b6ff,stroke:#0066cc,stroke-width:2px,color:#000
+    style J fill:#6caeff,stroke:#0066cc,stroke-width:2px,color:#000
 ```
 
 **Learning Path:**
@@ -298,6 +358,8 @@ graph TD
 6. **Deployment** → Contract Transactions
 7. **Local Chain** → Ganache + Escrow Lifecycle
 8. **DApp** → MetaMask + Banking Front-End
+9. **Enterprise Security** → Multi-Signature Authorization
+10. **Permissioned Blockchain** → Hyperledger Fabric Network
 
 </td>
 </tr>
@@ -382,6 +444,17 @@ python hadcoin_node_5003.py
 6. Click **Connect MetaMask Wallet** and approve in MetaMask
 7. Use the UI to Deposit, Withdraw, or Transfer ETH
 
+**Experiment 10 - Hyperledger Fabric Network:**
+1. Install prerequisites: **WSL/Ubuntu**, **Docker**, **Docker Compose**, **Node.js**, **Git**
+2. Clone fabric-samples: `git clone https://github.com/hyperledger/fabric-samples.git`
+3. Install Fabric binaries: `./install-fabric.sh binary docker`
+4. Start network: `cd test-network && ./network.sh up createChannel`
+5. Deploy chaincode: `./network.sh deployCC -ccn basic -ccp ../asset-transfer-basic/chaincode-javascript -ccl javascript`
+6. Initialize ledger: `peer chaincode invoke ... -c '{"function":"InitLedger","Args":[]}'`
+7. Query assets: `peer chaincode query -C mychannel -n basic -c '{"Args":["GetAllAssets"]}'`
+8. Create/Transfer assets using chaincode invoke commands
+9. Teardown: `./network.sh down`
+
 ---
 
 ## 🛠️ Technologies Used
@@ -396,6 +469,8 @@ python hadcoin_node_5003.py
 | ![Ethereum](https://img.shields.io/badge/Ethereum-3C3C3D?style=flat&logo=ethereum&logoColor=white) | Blockchain platform | Mainnet/Testnets |
 | ![MetaMask](https://img.shields.io/badge/MetaMask-E2761B?style=flat&logo=metamask&logoColor=white) | Web3 wallet | Latest |
 | ![Jupyter](https://img.shields.io/badge/Jupyter-F37626?style=flat&logo=jupyter&logoColor=white) | Interactive notebooks | Latest |
+| ![Hyperledger](https://img.shields.io/badge/Hyperledger-2F3134?style=flat&logo=hyperledger&logoColor=white) | Enterprise blockchain | Fabric 2.5.16 |
+| ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white) | Container platform | Latest |
 
 </div>
 
@@ -498,6 +573,13 @@ Blockchain_Experiments_Atharva_Lotankar_20/
 │   ├── OptimalBankingDApp.sol      # Banking smart contract (deposit/withdraw/transfer)
 │   ├── index.html                  # Front-end DApp UI (MetaMask + Ethers.js)
 │   ├── Blockchain_Lab_8 - Atharva Lotankar(D20C_20).pdf  # Documentation
+│   └── README.md                   # Experiment guide
+│
+├── Experiment 9/                    # Multi-Signature Wallet (Placeholder)
+│   └── README.md                   # Experiment guide
+│
+├── Experiment 10/                   # Hyperledger Fabric Network
+│   ├── Blockchain_Lab_10 - Atharva Lotankar(D20C_20).pdf  # Documentation
 │   └── README.md                   # Experiment guide
 │
 └── README.md                        # This file
@@ -679,12 +761,14 @@ For questions, discussions, or collaboration:
 | **Experiment 6** | ✅ Complete | ⭐⭐⭐ Intermediate | 2-3 hours |
 | **Experiment 7** | ✅ Complete | ⭐⭐⭐ Intermediate | 2-3 hours |
 | **Experiment 8** | ✅ Complete | ⭐⭐⭐ Intermediate | 2-3 hours |
+| **Experiment 9** | 🚧 Planned | ⭐⭐⭐⭐ Advanced | 3-4 hours |
+| **Experiment 10** | ✅ Complete | ⭐⭐⭐⭐ Advanced | 4-5 hours |
 
 ---
 
-### 🎉 All Experiments Completed Successfully!
+### 🎉 9 out of 10 Experiments Completed!
 
-*From cryptographic fundamentals to a full MetaMask-integrated DApp — A complete blockchain journey!*
+*From cryptographic fundamentals to enterprise permissioned blockchain — A comprehensive blockchain journey!*
 
 ---
 
